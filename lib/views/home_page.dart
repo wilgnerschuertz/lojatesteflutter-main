@@ -53,6 +53,7 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, index) {
                   final product = controller.products[index];
                   return Card(
+                    elevation: 2,
                     child: ListTile(
                       title: Text(
                         product.title!,
@@ -70,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                           product.image.toString(),
                         ),
                       ),
-                    ), elevation: 2,
+                    ),
                   );
                 });
           }),
