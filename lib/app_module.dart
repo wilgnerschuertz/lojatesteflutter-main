@@ -1,9 +1,9 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lojatesteflutter/services/dio_client.dart';
-import 'package:lojatesteflutter/views/home_page.dart';
 
 import 'controllers/home_controller.dart';
 import 'services/new_services_api.dart';
+import 'views/home_page.dart';
 
 class AppModule extends Module {
   @override

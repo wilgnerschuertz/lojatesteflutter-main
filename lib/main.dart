@@ -1,7 +1,6 @@
 // ignore_for_file: unused_import
 import 'package:flutter/material.dart';
-import 'views/home_page.dart';
-import 'views/home_page_product.dart';
+import 'views/home/home_page_product.dart';
 
 void main() {
   runApp(const MyApp());
