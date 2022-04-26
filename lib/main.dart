@@ -1,5 +1,6 @@
 // ignore_for_file: unused_import
 import 'package:flutter/material.dart';
+import 'package:lojatesteflutter/views/home/home_page_product%20copy.dart';
 import 'views/home/home_page_product.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeProduct(),
+      home: HomeProductTESTE(),
     );
   }
 }

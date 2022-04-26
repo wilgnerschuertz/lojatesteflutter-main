@@ -2,6 +2,7 @@
 
 import 'package:dio/dio.dart';
 import '../models/product.dart';
+import '../widgets/failure.dart';
 import 'http_client_interface.dart';
 
 const _url = "https://fakestoreapi.com/products";
@@ -12,9 +13,15 @@ class ApiProduct {
   ApiProduct(this.client);
 
   Future<List<Product>> getProducts() async {
-    final body = await client.get(_url);
-    // final body = response.data as List;
-    return (body as List).map((e) => Product.fromJson(e)).toList();
+    try {
+      final body = await client.get(_url);
+      // final body = response.data as List;
+      return (body as List).map((e) => Product.fromJson(e)).toList();
+    } catch (e) {
+      throw Failure(
+        message: 'Não foi possível carregar os dados',
+      );
+    }
 
     // final todos = body.map((e) => Product.fromJson(e)).toList();
     // .map((e) => Product(
