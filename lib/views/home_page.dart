@@ -46,34 +46,36 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: AnimatedBuilder(
-          animation: controller,
-          builder: (context, widget) {
-            return ListView.builder(
-                itemCount: controller.products.length,
-                itemBuilder: (context, index) {
-                  final product = controller.products[index];
-                  return Card(
-                    child: ListTile(
-                      title: Text(
-                        product.title!,
+        animation: controller,
+        builder: (context, widget) {
+          return ListView.builder(
+              itemCount: controller.products.length,
+              itemBuilder: (context, index) {
+                final product = controller.products[index];
+                return Card(
+                  elevation: 2,
+                  child: ListTile(
+                    title: Text(
+                      product.title!,
+                    ),
+                    subtitle: Text(
+                      product.price.toString(),
+                    ),
+                    leading: ConstrainedBox(
+                      constraints: BoxConstraints(
+                          minWidth: 44,
+                          minHeight: 44,
+                          maxWidth: 44,
+                          maxHeight: 44),
+                      child: Image.network(
+                        product.image.toString(),
                       ),
-                      subtitle: Text(
-                        product.price.toString(),
-                      ),
-                      leading: ConstrainedBox(
-                        constraints: BoxConstraints(
-                            minWidth: 44,
-                            minHeight: 44,
-                            maxWidth: 44,
-                            maxHeight: 44),
-                        child: Image.network(
-                          product.image.toString(),
-                        ),
-                      ),
-                    ), elevation: 2,
-                  );
-                });
-          }),
+                    ),
+                  ),
+                );
+              });
+        },
+      ),
     );
   }
 }

@@ -1,5 +1,9 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
+import 'cookier_example/main1.dart';
 import 'views/home_page.dart';
+import 'views/home_page_product.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: HomeProduct(),
     );
   }
 }
