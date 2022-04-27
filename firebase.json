@@ -1,10 +1,17 @@
 {
   "hosting": {
-    "public": "build",
+    "site": "shop-6d003",
+    "public": "build/web",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ]
   }
 }
