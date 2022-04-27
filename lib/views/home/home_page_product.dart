@@ -8,7 +8,9 @@ import '../../services/new_services_api.dart';
 import '../details/home_details_product.dart';
 
 class HomeProduct extends StatefulWidget {
-  const HomeProduct({Key? key}) : super(key: key);
+  const HomeProduct({Key? key, required this.list}) : super(key: key);
+
+  final List<Product> list;
 
   @override
   State<HomeProduct> createState() => _HomeProductState();
@@ -50,8 +52,10 @@ class _HomeProductState extends State<HomeProduct> {
         ),
       ),
       body: GridView.count(
-          crossAxisCount: 2,
-          children: List.generate(controller.products.length, (index) {
+        crossAxisCount: 2,
+        children: List.generate(
+          controller.products.length,
+          (index) {
             final product = controller.products[index];
             return buildCard(
               context,
@@ -59,7 +63,9 @@ class _HomeProductState extends State<HomeProduct> {
               product,
               product.image.toString(),
             );
-          })),
+          },
+        ),
+      ),
     );
 
     /*

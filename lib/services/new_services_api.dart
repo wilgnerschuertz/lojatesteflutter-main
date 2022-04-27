@@ -7,11 +7,15 @@ import 'http_client_interface.dart';
 
 const _url = "https://fakestoreapi.com/products";
 
-class ApiProduct {
-  final IHttpClient client;
+abstract class IAPIproduct {
+  Future<List<Product>> getProducts();
+}
 
+class ApiProduct implements IAPIproduct {
+  final IHttpClient client;
   ApiProduct(this.client);
 
+  @override
   Future<List<Product>> getProducts() async {
     try {
       final body = await client.get(_url);
@@ -23,16 +27,16 @@ class ApiProduct {
       );
     }
 
-    // final todos = body.map((e) => Product.fromJson(e)).toList();
-    // .map((e) => Product(
-    //       title: e['title'],
-    //       price: e['price'],
-    //       description: e['description'],
-    //     ))
-    // .toList();
-    // return todos;
-
     /*
+    final todos = body.map((e) => Product.fromJson(e)).toList();
+    .map((e) => Product(
+          title: e['title'],
+          price: e['price'],
+          description: e['description'],
+        ))
+    .toList();
+    return todos;
+
   int? id;
   String? title;
   double? price;
@@ -40,6 +44,6 @@ class ApiProduct {
   Category? category;
   String? image;
   Rating? rating;
-     */
+    */
   }
 }

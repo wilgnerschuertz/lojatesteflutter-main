@@ -1,7 +1,9 @@
-// ignore_for_file: annotate_overrides, todo, unused_local_variable
+// ignore_for_file: annotate_overrides, todo, unused_local_variable, file_names, dead_code, prefer_interpolation_to_compose_strings
+
 import 'package:flutter/material.dart';
 import 'package:lojatesteflutter/models/product.dart';
 import 'package:lojatesteflutter/utils/constants.dart';
+import 'package:lojatesteflutter/widgets/p_loading.dart';
 import '../../controllers/home_controller.dart';
 import '../../services/dio_client.dart';
 import '../../services/new_services_api.dart';
@@ -15,6 +17,9 @@ class HomeProductTESTE extends StatefulWidget {
 }
 
 class _HomeProductTESTEState extends State<HomeProductTESTE> {
+  late Future<List<Product>> _future;
+  Product? _product;
+
   final controller = HomeController(
     ApiProduct(
       DioClient(),
@@ -49,34 +54,43 @@ class _HomeProductTESTEState extends State<HomeProductTESTE> {
           ),
         ),
       ),
-      body: GridView.count(
-          crossAxisCount: 2,
-          children: List.generate(controller.products.length, (index) {
-            final product = controller.products[index];
-            return buildCard(
-              context,
-              true, // TODO: Verificar depois e ativar FAVORITOS!
-              product,
-              product.image.toString(),
+      body: SafeArea(
+        child: FutureBuilder(
+          future: controller.fetchAllProducts(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return PLoading();
+            }
+            if (snapshot.connectionState == ConnectionState.done) {
+              return GridView.count(
+                crossAxisSpacing: 1,
+                mainAxisSpacing: 1,
+                crossAxisCount: 2,
+                children: List.generate(
+                  controller.products.length,
+                  (index) {
+                    final product = controller.products[index];
+                    return buildCard(
+                      context,
+                      true, // TODO: Verificar depois e ativar FAVORITOS!
+                      product,
+                      product.image.toString(),
+                    );
+                  },
+                ),
+              );
+            }
+            return Column(
+              children: [
+                Text(
+                  'ERR -> ' + snapshot.connectionState.toString(),
+                ),
+              ],
             );
-          })),
-    );
-
-    /*
-      AnimatedBuilder(
-        animation: controller,
-        builder: (context, index) {
-          return ListView.builder(
-              itemCount: controller.products.length,
-              itemBuilder: (context, index) {
-                final product = controller.products[index];
-                return buildCard(
-                    context, true, product, product.image.toString());
-          });
-        },
+          },
+        ),
       ),
     );
-    */
   }
 
   Padding buildCard(
@@ -86,7 +100,7 @@ class _HomeProductTESTEState extends State<HomeProductTESTE> {
     String imgProd,
   ) {
     return Padding(
-      padding: EdgeInsets.only(top: 1, bottom: 1, left: 1, right: 1),
+      padding: EdgeInsets.all(5),
       child: InkWell(
         onTap: () {
           Navigator.of(context).push(
@@ -101,19 +115,20 @@ class _HomeProductTESTEState extends State<HomeProductTESTE> {
         },
         child: Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.1),
-                  spreadRadius: 1,
-                  blurRadius: 1,
-                )
-              ],
-              color: AppColors.WHITE_COLOR),
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.005),
+                spreadRadius: 2,
+                blurRadius: 1,
+              )
+            ],
+            color: AppColors.WHITE_COLOR,
+          ),
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.all(12),
+                padding: EdgeInsets.only(right: 6, top: 6),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -131,9 +146,11 @@ class _HomeProductTESTEState extends State<HomeProductTESTE> {
               ),
               Hero(
                 tag: imgProd,
+                // child: Padding(
+                //   padding: EdgeInsets.all(8),
                 child: Container(
-                  height: 80,
-                  width: 80,
+                  height: 75,
+                  width: 75,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                         image: NetworkImage(
@@ -144,28 +161,30 @@ class _HomeProductTESTEState extends State<HomeProductTESTE> {
                 ),
               ),
               SizedBox(
-                height: 10,
-                // width: 10,
+                height: 2,
               ),
               Text(
-                '\$ ${product.price.toString()}',
+                '\$${product.price.toString()}',
                 style: TextStyle(
                   color: AppColors.PRIMARY_COLOR,
-                  fontSize: 16.0,
+                  fontSize: 14,
                   fontFamily: 'Gilroy',
                   fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: 2,
               ),
-              Text(
-                product.title!,
-                style: TextStyle(
-                  color: AppColors.SECONDARY_COLOR,
-                  fontSize: 10.0,
-                  fontFamily: 'Gilroy',
-                  fontWeight: FontWeight.w500,
+              Padding(
+                padding: EdgeInsets.all(6),
+                child: Text(
+                  product.title!,
+                  style: TextStyle(
+                    color: AppColors.SECONDARY_COLOR,
+                    fontSize: 12,
+                    fontFamily: 'Gilroy',
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ),
             ],
@@ -175,3 +194,22 @@ class _HomeProductTESTEState extends State<HomeProductTESTE> {
     );
   }
 }
+
+
+
+
+    /*
+      AnimatedBuilder(
+        animation: controller,
+        builder: (context, index) {
+          return ListView.builder(
+              itemCount: controller.products.length,
+              itemBuilder: (context, index) {
+                final product = controller.products[index];
+                return buildCard(
+                    context, true, product, product.image.toString());
+          });
+        },
+      ),
+    );
+    */
