@@ -26,7 +26,6 @@ class ApiProduct implements IAPIproduct {
         message: 'Não foi possível carregar os dados',
       );
     }
-
     /*
     final todos = body.map((e) => Product.fromJson(e)).toList();
     .map((e) => Product(
@@ -36,7 +35,6 @@ class ApiProduct implements IAPIproduct {
         ))
     .toList();
     return todos;
-
   int? id;
   String? title;
   double? price;

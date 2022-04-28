@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "710326767531",
+    "project_id": "shop-6d003",
+    "storage_bucket": "shop-6d003.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:710326767531:android:f78ba894b5f408cb7a4cee",
+        "android_client_info": {
+          "package_name": "git.wilgnerschuertz.lojatesteflutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "710326767531-teij3av7jdgrr2fc2474ue4kr6ok98jm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4ODU3_Zk1lXxgLqaDuyJNXACgsQgZfSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "710326767531-teij3av7jdgrr2fc2474ue4kr6ok98jm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
